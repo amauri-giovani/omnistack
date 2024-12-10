@@ -1,0 +1,118 @@
+Cria o arquivo package.json que armazena informações e dependências do projeto
+    npm init -y
+
+Framework para dar um startup na app que faz as configurações mínimas do navegador
+    npm install express
+
+Pacote que reinicia o node automaticamente. O "-D" significa para dev e não prod
+    npm install nodemon -D
+    No package.json verá que ele é uma dependência de dev e não do projeto
+    Altere o script "test" para: "start": "nodemon index.js" e inicie o servidor:
+        npm start
+
+Instalar Knex que é um Query Builder para utilizar código JS para todos os DBs
+    npm install knex
+
+Instalar sqlite
+    npm install sqlite3
+
+Para criar o arquivo knexfile.js de configurações de acesso ao DB
+    npx knex init
+
+Migrations:
+    Instalar
+        npx knex migrate: make create_ongs
+        create_ongs é o nome da migration
+    Mostrar todos os comandos:
+        npx knex
+    Aplicar as migrações:
+        npx knex migrate:latest
+    Voltar migrações:
+        npx knex migrate:rollback
+    Visualizar as migrations executadas:
+        npx knex migrate:status
+
+Instalar o módulo de segurança cors que determinará quem irá acessar a app
+    npm install cors
+
+Instalar pacote com ícones
+    npm install react-icons
+
+Instalar pacote de rotas
+    npm install react-router-dom
+
+Cliente HTTP para fazer chamada a api do backend
+    npm install axios
+
+Instalar Expo (-g para global, usar em todo o sistema do computador)
+    npm install -g expo-cli
+    Criar um projeto chamado mobile
+        expo init mobile
+
+Instalar pacotes de rotas para navegação (https://docs.expo.io/versions/latest/)
+    Em search: routing (https://docs.expo.io/versions/latest/guides/routing-and-navigation/)
+        Em React Navigation => reactnavigation.org => Read docs (https://reactnavigation.org/docs/getting-started)
+            npm install @react-navigation/native
+            expo install react-native-gesture-handler react-native-reanimated react-native-screens react-native-safe-area-context @react-native-community/masked-view
+            Em "Hello React Navigation" instale a navegação por botões e não por menu, exemplo
+                npm install @react-navigation/stack
+
+Instalar Constants para estilização
+    expo install expo-constants
+
+Tipos de parâmetros:
+    Query Params: Parâmetros nomeados enviados na rota após "?" (Filtros, paginação)
+        Ex: users?nome=Amauri
+    Route Params: Parâmetros utilizados para identificar recursos
+        Ex: users/1
+    Request Body: Corpo da requisição, utilizado para criar ou alterar recursos
+        Ex: {"name": "Amauri", "idade": 45}
+
+Instalar framework de testes Jest
+    npm install jest
+    Iniciar o Jest  
+        npx jest --init
+            Quando perguntar se deseja adicionar um script de teste dentro do package.json para rodar os scripts de teste, responda sim "y"
+            Quando perguntar se deseja executar os scripts no node ou browser, responda node.
+            Quando perguntar se cada coisa que fizer em um teste não seja válido para outro teste, responda sim "y".
+            Será criado o arquivo jest.config.js
+            Exemplo de teste:
+                describe('Generate Unique ID', () => {
+                    it('should generate an unique ID', () => {
+                        expect(2+2).toBe(4);  // espera-se que 2+2 seja 4
+                    });
+                });
+
+                describe => nome do teste
+                it => descrição do teste
+
+Tipos de testes
+    integration:
+        testam fluxo de uma rota inteira da app
+    unit:
+        testam uma função específica da app de forma muito isolada
+
+Para utilizar variáveis de ambiente
+    Dúvidas sobre variáveis de ambiente:
+        https://blog.rocketseat.com.br/variaveis-ambiente-nodejs/
+    Instalar cross-env
+        https://github.com/kentcdodds/cross-env
+        npm install cross-env
+    Em knesfile.js:
+      test: {
+        client: 'sqlite3',
+        connection: {
+        filename: './src/database/test.sqlite'
+        },
+        migrations: {
+        directory: './src/database/migrations'
+        },
+        useNullAsDefault: true, // para que os campos do sqlite possam ser nulos por padrão
+      },
+    Em package.json, teremos uma variável de ambiente disponível com o script "test" :
+        "test": "cross-env NODE_ENV=test jest"
+    Para pegar uma variável de ambiente no node:
+        const env = process.env.NODE_ENV
+
+Instalar supertest (modo dev) para fazer requisições HTTP a api e validações nos testes
+    npm install supertest -D
